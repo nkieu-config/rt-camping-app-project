@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AlignJustify } from "lucide-react";
+import { SignedIn, SignedOut, SignInButton, SignUpButton } from "@clerk/nextjs";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,28 +12,51 @@ import {
 import { links } from "@/utils/links";
 import { Button } from "../ui/button";
 import UserIcon from "./UserIcon";
+import SignOutLink from "./SignOutLink";
 
 function DropDownListMenu() {
   return (
-    <div>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="outline">
-            <AlignJustify />
-            <UserIcon />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline">
+          <AlignJustify />
+          <UserIcon />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+
+        <SignedOut>
+          <DropdownMenuItem>
+            <SignInButton mode="modal">
+              <button>Login</button>
+            </SignInButton>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem>
+            <SignUpButton mode="modal">
+              <button>Register</button>
+            </SignUpButton>
+          </DropdownMenuItem>
+        </SignedOut>
+
+        <SignedIn>
+          {links.map((item, index) => {
+            return (
+              <DropdownMenuItem key={index}>
+                <Link href={item.href}>{item.label}</Link>
+              </DropdownMenuItem>
+            );
+          })}
           <DropdownMenuSeparator />
-          {links.map((link, index) => (
-            <DropdownMenuItem key={index}>
-              <Link href={link.href}>{link.label}</Link>
-            </DropdownMenuItem>
-          ))}
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </div>
+
+          <DropdownMenuItem>
+            <SignOutLink />
+          </DropdownMenuItem>
+        </SignedIn>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 export default DropDownListMenu;
