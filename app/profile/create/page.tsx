@@ -1,19 +1,7 @@
-import { FormState } from "@/utils/types";
+import { createProfileAction } from "@/actions/actions";
 import FormButton from "@/components/Form/FormButton";
 import FormContainer from "@/components/Form/FormContainer";
 import FormInput from "@/components/Form/FormInput";
-
-const createProfileAction = async (
-  prevState: FormState,
-  formData: FormData,
-) => {
-  "use server";
-
-  const firstName = formData.get("firstName");
-  console.log(firstName);
-
-  return { message: "Profile created successfully" };
-};
 
 function page() {
   return (
