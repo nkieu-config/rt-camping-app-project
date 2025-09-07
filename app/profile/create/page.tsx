@@ -3,7 +3,7 @@ import FormButton from "@/components/Form/FormButton";
 import FormContainer from "@/components/Form/FormContainer";
 import FormInput from "@/components/Form/FormInput";
 
-function page() {
+async function page() {
   return (
     <section>
       <h1 className="mt-4 mb-8 text-2xl font-semibold capitalize">

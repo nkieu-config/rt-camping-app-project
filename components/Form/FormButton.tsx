@@ -22,7 +22,14 @@ function FormButton({ className, size, text }: FormButtonProps) {
       size={size}
       disabled={pending}
     >
-      {pending ? <Loader className="animate-spin" /> : text}
+      {pending ? (
+        <>
+          <Loader className="animate-spin" />
+          <span>Please wait...</span>
+        </>
+      ) : (
+        text
+      )}
     </Button>
   );
 }
