@@ -9,7 +9,7 @@ import {
 import { provinces } from "@/utils/data";
 
 function ProvinceInput({ defaultValue }: { defaultValue?: string }) {
-  const name = "category";
+  const name = "province";
 
   return (
     <div className="mb-4 flex flex-col gap-4">

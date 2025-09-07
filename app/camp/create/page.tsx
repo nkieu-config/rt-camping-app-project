@@ -8,18 +8,18 @@ import ProvinceInput from "@/components/Form/ProvinceInput";
 
 async function page() {
   return (
-    <section>
-      <h1 className="mt-4 mb-8 text-2xl font-semibold capitalize">
+    <section className="mx-auto max-w-5xl px-4 py-10">
+      <h1 className="mt-6 mb-10 text-center text-3xl font-semibold capitalize">
         Create Landmark
       </h1>
-      <div className="max-w-lg rounded-lg border p-10">
+      <div className="mx-auto max-w-3xl rounded-lg border p-10">
         <FormContainer action={createLandmarkAction}>
-          <div className="flex flex-col gap-2">
+          <div className="grid grid-cols-2 gap-4">
             <FormInput
               name="name"
               label="Landmark Name"
               type="text"
-              placeholder="e.g. Grand Palace, Phuket Beach, etc."
+              placeholder="e.g. Phuket Beach"
             />
             <CategoryInput />
             <TextAreaInput name="description" />
@@ -27,10 +27,14 @@ async function page() {
               name="price"
               label="Price"
               type="number"
-              placeholder="e.g. 1000 baht per night"
+              placeholder="e.g. 1500 baht"
             />
             <ProvinceInput />
-            <FormButton text="Create Landmark" size="lg" />
+            <FormButton
+              className="col-span-2"
+              text="Create Landmark"
+              size="lg"
+            />
           </div>
         </FormContainer>
       </div>

@@ -9,8 +9,8 @@ interface TextAreaInputProps {
 
 function TextAreaInput({ name, LabelText, defaultValue }: TextAreaInputProps) {
   return (
-    <div className="mb-4 flex flex-col gap-4">
-      <Label className="capitalize" htmlFor={name}>
+    <div className="col-span-2 mb-4">
+      <Label className="mb-4 capitalize" htmlFor={name}>
         {LabelText || name}
       </Label>
       <Textarea
