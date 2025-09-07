@@ -13,7 +13,7 @@ function FormInput(props: FormInputProps) {
   const { name, type, label, placeholder, defaultValue } = props;
 
   return (
-    <div className="mb-4 flex flex-col gap-3">
+    <div className="mb-4 flex flex-col gap-4">
       <Label htmlFor={name}>{label}</Label>
       <Input
         name={name}
