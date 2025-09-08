@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import { createLandmarkAction } from "@/actions/actions";
 import FormButton from "@/components/Form/FormButton";
 import FormContainer from "@/components/Form/FormContainer";
@@ -5,10 +6,11 @@ import FormInput from "@/components/Form/FormInput";
 import CategoryInput from "@/components/Form/CategoryInput";
 import TextAreaInput from "@/components/Form/TextAreaInput";
 import ProvinceInput from "@/components/Form/ProvinceInput";
+import MapLandmark from "@/components/Map/MapLandmark";
 
 async function page() {
   return (
-    <section className="mx-auto max-w-5xl px-4 py-10">
+    <section className="mx-auto max-w-5xl px-4 py-6">
       <h1 className="mt-6 mb-10 text-center text-3xl font-semibold capitalize">
         Create Landmark
       </h1>
@@ -30,12 +32,15 @@ async function page() {
               placeholder="e.g. 1500 baht"
             />
             <ProvinceInput />
-            <FormButton
-              className="col-span-2"
-              text="Create Landmark"
-              size="lg"
-            />
           </div>
+
+          <MapLandmark />
+
+          <FormButton
+            className="mt-6 w-full"
+            text="Create Landmark"
+            size="lg"
+          />
         </FormContainer>
       </div>
     </section>
