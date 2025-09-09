@@ -1,7 +1,12 @@
 "use server";
 
 import * as z from "zod";
-import { createProfileSchema, createProfileValidator } from "@/utils/schemas";
+import {
+  createProfileSchema,
+  validateWithSchema,
+  imageSchema,
+  landmarkSchema,
+} from "@/utils/schemas";
 import { FormState } from "@/utils/types";
 import { redirect } from "next/navigation";
 import { clerkClient, currentUser } from "@clerk/nextjs/server";
@@ -14,17 +19,18 @@ const getCurrentUser = async () => {
     throw new Error("User not found");
   }
 
-  if (!user.privateMetadata.hasProfile) {
-    redirect("/profile/create");
-  }
+  if (!user.privateMetadata.hasProfile) redirect("/profile/create");
+
   return user;
 };
 
 const renderError = (error: unknown): FormState => {
-  return {
-    message:
-      error instanceof z.ZodError ? error.message : "Something went wrong",
-  };
+  if (error instanceof z.ZodError) {
+    const message = error.issues.map((issue) => issue.message).join(", ");
+    return { message: message };
+  }
+
+  return { message: "Something went wrong" };
 };
 
 export const createProfileAction = async (
@@ -38,7 +44,7 @@ export const createProfileAction = async (
     }
 
     const data = Object.fromEntries(formData);
-    const profile = createProfileValidator(createProfileSchema, data);
+    const profile = validateWithSchema(createProfileSchema, data);
 
     await prisma.profile.create({
       data: {
@@ -67,12 +73,19 @@ export const createLandmarkAction = async (
   formData: FormData,
 ): Promise<FormState> => {
   try {
-    const user = await currentUser();
+    const user = await getCurrentUser();
     if (!user) {
       throw new Error("User not found");
     }
 
     const data = Object.fromEntries(formData);
+    const file = formData.get("image") as File;
+
+    const validatedFile = validateWithSchema(imageSchema, { image: file });
+    console.log("validated file", validatedFile);
+
+    const validatedData = validateWithSchema(landmarkSchema, data);
+    console.log("validated data", validatedData);
 
     return { message: "Landmark created successfully" };
   } catch (error) {

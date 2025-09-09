@@ -7,6 +7,7 @@ import CategoryInput from "@/components/Form/CategoryInput";
 import TextAreaInput from "@/components/Form/TextAreaInput";
 import ProvinceInput from "@/components/Form/ProvinceInput";
 import MapLandmark from "@/components/Map/MapLandmark";
+import ImageInput from "@/components/Form/ImageInput";
 
 async function page() {
   return (
@@ -33,6 +34,8 @@ async function page() {
             />
             <ProvinceInput />
           </div>
+
+          <ImageInput />
 
           <MapLandmark />
 

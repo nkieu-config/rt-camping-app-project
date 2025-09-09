@@ -44,7 +44,7 @@ function MapLandmark({ location }: MapLandmarkProps) {
 
   return (
     <>
-      <p className="mt-4 text-sm font-semibold">Where is your landmark?</p>
+      <p className="mt-8 text-sm font-semibold">Where is your landmark?</p>
       <input type="hidden" name="lat" value={position ? position.lat : ""} />
       <input type="hidden" name="lng" value={position ? position.lng : ""} />
 
