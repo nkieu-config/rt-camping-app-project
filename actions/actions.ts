@@ -7,6 +7,7 @@ import {
   imageSchema,
   landmarkSchema,
 } from "@/utils/schemas";
+import { uploadFile } from "@/services/storage";
 import { FormState } from "@/utils/types";
 import { redirect } from "next/navigation";
 import { clerkClient, currentUser } from "@clerk/nextjs/server";
@@ -82,13 +83,25 @@ export const createLandmarkAction = async (
     const file = formData.get("image") as File;
 
     const validatedFile = validateWithSchema(imageSchema, { image: file });
-    console.log("validated file", validatedFile);
-
     const validatedData = validateWithSchema(landmarkSchema, data);
-    console.log("validated data", validatedData);
 
-    return { message: "Landmark created successfully" };
+    // Upload image to storage
+    const imagePath = await uploadFile(validatedFile.image);
+    console.log(imagePath);
+
+    // Insert into database
+    await prisma.landmark.create({
+      data: {
+        ...validatedData,
+        profileId: user.id,
+        image: imagePath,
+      },
+    });
+
+    // return { message: "Landmark created successfully" };
   } catch (error) {
     return renderError(error);
   }
+
+  redirect("/");
 };
